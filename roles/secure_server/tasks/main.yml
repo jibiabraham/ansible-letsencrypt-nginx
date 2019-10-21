@@ -1,0 +1,95 @@
+---
+# tasks file for harden
+- name: Update and upgrade apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 #One day
+
+- name: Ensure deploy user present
+  user:
+    name: deploy
+    shell: /bin/bash
+    password: "{{ hashed_deploy_user_password }}"
+
+- name: Set authorized key taken from file
+  authorized_key:
+    user: deploy
+    state: present
+    key: "{{ lookup('file', '../../../files/keys/{{ login_ssh_public_key_filename }}') }}"
+
+- name: Set permissions on /home/deploy/.ssh/authorized_keys
+  file:
+    path: /home/deploy/.ssh/authorized_keys
+    owner: deploy
+    group: deploy
+    mode: 0400
+
+- include_tasks: copy_deployment_keys.yml
+  when: has_deployment_keys
+
+- include_tasks: copy_ssh_config.yml
+  when: has_ssh_config
+
+- name: Disable admin group in sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: "^%admin"
+    line: "#%admin ALL=(ALL) ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Disable sudo group in sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: "^%sudo"
+    line: "#%sudo ALL=(ALL) ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Add deploy to sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^%deploy"
+    line: "%deploy ALL=(ALL) ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Disable root login via password
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin prohibit-password"
+
+- name: Disable PasswordAuthentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+
+- name: Install unattended-upgrades package
+  apt:
+    name: unattended-upgrades
+    update_cache: yes
+
+- name: Enable periodic updates
+  copy:
+    src: ../../../files/secure_server/10periodic
+    dest: /etc/apt/apt.conf.d/10periodic
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable ufw access for OpenSSH
+  ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Enable ufw
+  ufw:
+    state: enabled
+
+- name: Unconditionally reboot the machine after applying the updates
+  reboot:

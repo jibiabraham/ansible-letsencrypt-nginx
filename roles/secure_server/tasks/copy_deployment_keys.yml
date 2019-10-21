@@ -1,0 +1,15 @@
+- name: Copy deployment private key
+  copy:
+    src: ../../../files/keys/deploy
+    dest: /home/deploy/.ssh/deploy
+    owner: deploy
+    group: deploy
+    mode: 0600
+
+- name: Copy deployment public key
+  copy:
+    src: ../../../files/keys/deploy.pub
+    dest: /home/deploy/.ssh/deploy.pub
+    owner: deploy
+    group: deploy
+    mode: 0644

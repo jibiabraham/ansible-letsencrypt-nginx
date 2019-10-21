@@ -1,0 +1,4 @@
+Host gitlab.com
+ HostName gitlab.com
+ PreferredAuthentications publickey
+ IdentityFile ~/.ssh/deploy

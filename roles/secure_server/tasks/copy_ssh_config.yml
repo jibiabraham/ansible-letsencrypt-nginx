@@ -1,0 +1,7 @@
+- name: Copy ssh config file
+  copy:
+    src: ../../../files/secure_server/ssh_config
+    dest: /home/deploy/.ssh/config
+    owner: deploy
+    group: deploy
+    mode: 0644

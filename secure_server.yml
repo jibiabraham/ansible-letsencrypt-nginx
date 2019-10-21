@@ -1,0 +1,11 @@
+- hosts: webservers
+  become: true
+  gather_facts: False
+
+  roles:
+    - role: secure_server
+      vars:
+        hashed_deploy_user_password: $6$8alcM6/bp86XtR$fui1ie6z9E83oi/HxYdL0ksT7q7NhcLGW4CZEGbN7pYlL1SiXZHVRv5/kFtYeTgzNtnyQstTuePHKH5Pj4mZp.
+        login_ssh_public_key_filename: testingordinarysystems.pub
+        has_deployment_keys: true
+        has_ssh_config: true
