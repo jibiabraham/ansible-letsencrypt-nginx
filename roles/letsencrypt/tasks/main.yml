@@ -1,0 +1,75 @@
+---
+# tasks file for letsencrypt
+- name: Install Python simplejson
+  apt:
+    pkg: python-simplejson
+    state: present
+    update_cache: true
+
+- name: install letsencrypt
+  apt:
+    name: letsencrypt
+    state: latest
+
+- name: create letsencrypt directory
+  file:
+    name: /var/www/letsencrypt
+    state: directory
+
+- name: Remove default nginx config
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Install system nginx config
+  template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: Install nginx site for letsencrypt requests
+  template:
+    src: templates/nginx-http.j2
+    dest: /etc/nginx/sites-enabled/http
+
+- name: Reload nginx to activate letsencrypt site
+  service:
+    name: nginx
+    state: restarted
+
+- name: Create letsencrypt certificate
+  shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos {{ all_domain_names | map('regex_replace', '^(.*)$', '-d \1') | join(' ') }}
+  args:
+    creates: /etc/letsencrypt/live/{{ main_domain_name }}
+
+- name: Generate dhparams
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    creates: /etc/nginx/dhparams.pem
+
+- name: Add empty data directory for {{ main_domain_name }} static files at /var/www/{{ main_domain_name }}
+  become: true
+  file:
+    path: "/var/www/{{ main_domain_name }}"
+    state: directory
+    mode: u=rwx,g=r,o=r
+    owner: www-data
+    group: www-data
+
+- name: Install nginx site for {{ main_domain_name }}
+  template:
+    src: nginx-le.j2
+    dest: /etc/nginx/sites-enabled/{{ main_domain_name }}
+
+- name: Reload nginx to activate specified site
+  service:
+    name: nginx
+    state: restarted
+
+- name: Add letsencrypt cronjob for cert renewal
+  cron:
+    name: letsencrypt_renewal
+    special_time: weekly
+    job: letsencrypt --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos {{ all_domain_names | map('regex_replace', '^(.*)$', '-d \\1') | join(' ')}} && service nginx reload
+
+- include_tasks: deploy_sample_html.yml
+  when: deploy_sample_html

@@ -1,0 +1,13 @@
+- hosts: webservers
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: letsencrypt
+      vars:
+        letsencrypt_email: you@example.com
+        main_domain_name: example.com
+        all_domain_names:
+          - example.com
+          - www.example.com
+        deploy_sample_html: true

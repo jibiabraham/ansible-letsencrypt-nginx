@@ -1,0 +1,7 @@
+- name: Deploy sample html file (a.singlediv.com by Lynn Fisher)
+  copy:
+    src: a.singlediv.com.html
+    dest: /var/www/{{ main_domain_name }}/index.html
+    owner: www-data
+    group: www-data
+    mode: u=rw,g=r,o=r

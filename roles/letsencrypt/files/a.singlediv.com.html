@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      blockquote,
+      q {
+        quotes: none;
+      }
+      blockquote:before,
+      blockquote:after,
+      q:before,
+      q:after {
+        content: "";
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      header {
+        padding: 10px 80px 7px 15px;
+        position: relative;
+        background: #333;
+        color: white;
+        font-family: Georgia, Times, serif;
+        font-size: 15px;
+        font-style: italic;
+        z-index: 10;
+      }
+      header h1,
+      header p {
+        display: inline-block;
+      }
+      header h1 {
+        margin-bottom: 5px;
+      }
+      header p {
+        line-height: 1.4;
+        color: #bed4dc;
+      }
+      header p a {
+        color: #67b1cd;
+        text-decoration: none;
+        border-bottom: 1px dotted;
+      }
+      header .share-link {
+        padding: 15px 10px 7px;
+        position: absolute;
+        right: 15px;
+        top: -8px;
+        background: #55acee;
+        border-radius: 5px;
+        color: white;
+        text-decoration: none;
+        font-style: normal;
+        font-size: 12px;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      header .share-link:hover {
+        background: #469cd1;
+      }
+      @media (max-width: 500px) {
+        header {
+          padding: 15px 80px 15px 15px;
+        }
+      }
+      .entry {
+        text-align: center;
+        min-height: 400px;
+        position: relative;
+      }
+      .entry div {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+      }
+      .entry div:before,
+      .entry div:after {
+        display: block;
+        content: "";
+        position: absolute;
+      }
+      @media (max-width: 400px) {
+        .entry div:not(.no-scale) {
+          -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+        }
+      }
+      @media all and (min-width: 650px) and (max-width: 959px) {
+        .entry {
+          float: left;
+          width: 100%;
+        }
+      }
+      @media all and (min-width: 960px) {
+        .entry {
+          float: left;
+          width: 50%;
+        }
+        .entry.wide {
+          width: 100%;
+        }
+      }
+      #css-one {
+        background: #242b33;
+      }
+      #css-one div {
+        width: 70px;
+        height: 140px;
+        margin-left: -150px;
+        margin-top: -70px;
+        background: #f2612f;
+        border-radius: 100px 0 0 100px;
+      }
+      @media (max-width: 400px) {
+        #css-one div {
+          margin-left: -125px;
+        }
+      }
+      #css-one div:before,
+      #css-one div:after {
+        width: 110px;
+        height: 55px;
+      }
+      #css-one div:before {
+        left: 75px;
+        top: 0;
+        background: #f9dbae;
+        border-radius: 100px 100px 0 0;
+        -webkit-box-shadow: 75px 75px 0 #42c3d0;
+        box-shadow: 75px 75px 0 #42c3d0;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
+      #css-one div:after {
+        left: 97px;
+        bottom: 10px;
+        background: #f9dbae;
+        border-radius: 100px 100px 0 0;
+        -webkit-box-shadow: -74px -74px 0 #42c3d0;
+        box-shadow: -74px -74px 0 #42c3d0;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+      }
+      #css-two {
+        background: #f2612f;
+      }
+      #css-two div {
+        width: 300px;
+        height: 225px;
+        margin-left: -150px;
+        margin-top: -112.5px;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(
+            to bottom,
+            #f9dbae 25px,
+            transparent 25px,
+            transparent 200px,
+            #f9dbae 200px
+          ),
+          linear-gradient(
+            to bottom,
+            #f9dbae 25px,
+            transparent 25px,
+            transparent 50px,
+            #f9dbae 50px,
+            #f9dbae 75px,
+            transparent 75px,
+            transparent 200px,
+            #f9dbae 200px
+          ),
+          linear-gradient(to bottom, #f9dbae, #f9dbae),
+          linear-gradient(
+            to bottom,
+            transparent 100px,
+            #f9dbae 100px,
+            #f9dbae 125px,
+            transparent 125px,
+            transparent 125px,
+            transparent 150px,
+            #f9dbae 150px,
+            #f9dbae 175px,
+            transparent 175px
+          ),
+          linear-gradient(to right, #f9dbae, #f9dbae),
+          linear-gradient(to right, #f9dbae, #f9dbae),
+          linear-gradient(to right, #f9dbae, #f9dbae),
+          linear-gradient(to right, #f9dbae, #f9dbae),
+          linear-gradient(to right, #f9dbae, #f9dbae);
+        background-size: 125px 100%, 150px 100%, 75px 25px, 200px 100%,
+          25px 100%, 25px 50px, 25px 50px, 25px 50px, 25px 175px;
+        background-position: 0 0, 100% 0, 50px 50px, 50px 0, 0 0, 150px 0,
+          50px 50px, 225px 100px, 100% 50px;
+      }
+      #css-three {
+        background: #f9dbae;
+      }
+      #css-three div {
+        width: 300px;
+        height: 100px;
+        margin-left: -150px;
+        margin-top: -50px;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(
+            to right,
+            #f2612f 5.3%,
+            transparent 5.3%,
+            transparent 10%,
+            #f2612f 10%,
+            #f2612f 13%,
+            transparent 13%
+          ),
+          linear-gradient(
+            65deg,
+            transparent 44%,
+            #f2612f 44%,
+            #f2612f 49%,
+            transparent 49%,
+            transparent 53%,
+            #f2612f 53%,
+            #f2612f 56%,
+            transparent 56%
+          ),
+          linear-gradient(
+            65deg,
+            transparent 74%,
+            #f2612f 74%,
+            #f2612f 79%,
+            transparent 79%,
+            transparent 83%,
+            #f2612f 83%,
+            #f2612f 86%,
+            transparent 86%
+          );
+        background-size: 100% 100%;
+        background-position: 0 0;
+      }
+      #css-three div:before {
+        width: 310px;
+        height: 216px;
+        left: 50%;
+        top: -58px;
+        margin-left: -155px;
+        background-repeat: repeat-x;
+        background-image: radial-gradient(
+            circle at bottom,
+            #42c3d0 22%,
+            transparent 22%,
+            transparent 45%,
+            #242b33 45%,
+            #242b33 66%,
+            transparent 66%
+          ),
+          radial-gradient(
+            circle at top,
+            #42c3d0 22%,
+            transparent 22%,
+            transparent 45%,
+            #242b33 45%,
+            #242b33 66%,
+            transparent 66%
+          );
+        background-size: 33.333% 45px;
+        background-position: 0 0, 0 100%;
+      }
+      #css-three div:after {
+        width: 300px;
+        height: 100px;
+        background-repeat: no-repeat;
+        background-image: radial-gradient(
+            circle at top,
+            #f2612f 14%,
+            transparent 14%
+          ),
+          radial-gradient(circle at top, #f2612f 14%, transparent 14%),
+          radial-gradient(circle at top, #f2612f 14%, transparent 14%),
+          radial-gradient(circle at bottom, #f2612f 14%, transparent 14%),
+          radial-gradient(circle at bottom, #f2612f 14%, transparent 14%),
+          radial-gradient(circle at bottom, #f2612f 14%, transparent 14%);
+        background-size: 30% 100%;
+        background-position: 15% 0, 64% 0, 114% 0, 15% 100%, 35% 100%, 85% 100%;
+      }
+      #css-four {
+        background: #42c3d0;
+      }
+      #css-four div {
+        width: 300px;
+        height: 150px;
+        margin-left: -150px;
+        margin-top: -75px;
+        background-repeat: no-repeat;
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            right top,
+            color-stop(13.33%, #242b33),
+            color-stop(13.33%, transparent)
+          ),
+          -webkit-gradient(linear, left top, right top, color-stop(36.66%, transparent), color-stop(36.66%, #242b33), color-stop(50%, #242b33), color-stop(50%, transparent), color-stop(73.33%, transparent), color-stop(73.33%, #242b33), color-stop(86.66%, #242b33), color-stop(86.66%, transparent)),
+          -webkit-gradient(linear, right top, left top, color-stop(13.33%, #242b33), color-stop(13.33%, transparent), color-stop(36.66%, transparent), color-stop(36.66%, #242b33), color-stop(49.99%, #242b33), color-stop(49.99%, transparent));
+        background-image: linear-gradient(
+            to right,
+            #242b33 13.33%,
+            transparent 13.33%
+          ),
+          linear-gradient(
+            to right,
+            transparent 36.66%,
+            #242b33 36.66%,
+            #242b33 50%,
+            transparent 50%,
+            transparent 73.33%,
+            #242b33 73.33%,
+            #242b33 86.66%,
+            transparent 86.66%
+          ),
+          linear-gradient(
+            to left,
+            #242b33 13.33%,
+            transparent 13.33%,
+            transparent 36.66%,
+            #242b33 36.66%,
+            #242b33 49.99%,
+            transparent 49.99%
+          );
+        background-size: 100% 100%, 100% 50%, 100% 50%;
+        background-position: 0 0, 0 0, 0 100%;
+      }
+      #css-four div:before {
+        width: 30px;
+        height: 30px;
+        background: #242b33;
+        left: 15%;
+        top: -3%;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        -webkit-box-shadow: 78px -78px 0 #242b33, 156px -156px 0 #242b33,
+          90px 90px 0 #242b33, 139px 41px 0 #242b33, 217px -37px 0 #242b33;
+        box-shadow: 78px -78px 0 #242b33, 156px -156px 0 #242b33,
+          90px 90px 0 #242b33, 139px 41px 0 #242b33, 217px -37px 0 #242b33;
+      }
+      #css-four div:after {
+        width: 300px;
+        height: 150px;
+        background-repeat: no-repeat;
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(#f2612f),
+            to(#f2612f)
+          ),
+          -webkit-gradient(linear, left top, left bottom, color-stop(34%, #f2612f), color-stop(34%, transparent), color-stop(37%, transparent), color-stop(37%, #f9dbae), color-stop(43%, #f9dbae), color-stop(43%, transparent), color-stop(47%, transparent), color-stop(47%, #f9dbae), color-stop(53%, #f9dbae), color-stop(53%, transparent), color-stop(57%, transparent), color-stop(57%, #f9dbae), color-stop(63%, #f9dbae), color-stop(63%, transparent), color-stop(67%, transparent), color-stop(67%, #f2612f)),
+          -webkit-gradient(linear, left top, left bottom, color-stop(34%, #f2612f), color-stop(34%, transparent), color-stop(37%, transparent), color-stop(37%, #f9dbae), color-stop(43%, #f9dbae), color-stop(43%, transparent), color-stop(47%, transparent), color-stop(47%, #f9dbae), color-stop(53%, #f9dbae), color-stop(53%, transparent), color-stop(57%, transparent), color-stop(57%, #f9dbae), color-stop(63%, #f9dbae), color-stop(63%, transparent), color-stop(67%, transparent), color-stop(67%, #f2612f)),
+          -webkit-gradient(linear, left top, left bottom, color-stop(34%, #f2612f), color-stop(34%, transparent), color-stop(37%, transparent), color-stop(37%, #f9dbae), color-stop(43%, #f9dbae), color-stop(43%, transparent), color-stop(47%, transparent), color-stop(47%, #f9dbae), color-stop(53%, #f9dbae), color-stop(53%, transparent), color-stop(57%, transparent), color-stop(57%, #f9dbae), color-stop(63%, #f9dbae), color-stop(63%, transparent), color-stop(67%, transparent), color-stop(67%, #f2612f)),
+          -webkit-gradient(linear, left top, left bottom, color-stop(34%, #f2612f), color-stop(34%, transparent), color-stop(37%, transparent), color-stop(37%, #f9dbae), color-stop(43%, #f9dbae), color-stop(43%, transparent), color-stop(47%, transparent), color-stop(47%, #f9dbae), color-stop(53%, #f9dbae), color-stop(53%, transparent), color-stop(57%, transparent), color-stop(57%, #f9dbae), color-stop(63%, #f9dbae), color-stop(63%, transparent), color-stop(67%, transparent), color-stop(67%, #f2612f)),
+          -webkit-gradient(linear, left top, left bottom, color-stop(34%, #f2612f), color-stop(34%, transparent), color-stop(37%, transparent), color-stop(37%, #f9dbae), color-stop(43%, #f9dbae), color-stop(43%, transparent), color-stop(47%, transparent), color-stop(47%, #f9dbae), color-stop(53%, #f9dbae), color-stop(53%, transparent), color-stop(57%, transparent), color-stop(57%, #f9dbae), color-stop(63%, #f9dbae), color-stop(63%, transparent), color-stop(67%, transparent), color-stop(67%, #f2612f));
+        background-image: linear-gradient(to bottom, #f2612f, #f2612f),
+          linear-gradient(
+            to bottom,
+            #f2612f 34%,
+            transparent 34%,
+            transparent 37%,
+            #f9dbae 37%,
+            #f9dbae 43%,
+            transparent 43%,
+            transparent 47%,
+            #f9dbae 47%,
+            #f9dbae 53%,
+            transparent 53%,
+            transparent 57%,
+            #f9dbae 57%,
+            #f9dbae 63%,
+            transparent 63%,
+            transparent 67%,
+            #f2612f 67%
+          ),
+          linear-gradient(
+            to bottom,
+            #f2612f 34%,
+            transparent 34%,
+            transparent 37%,
+            #f9dbae 37%,
+            #f9dbae 43%,
+            transparent 43%,
+            transparent 47%,
+            #f9dbae 47%,
+            #f9dbae 53%,
+            transparent 53%,
+            transparent 57%,
+            #f9dbae 57%,
+            #f9dbae 63%,
+            transparent 63%,
+            transparent 67%,
+            #f2612f 67%
+          ),
+          linear-gradient(
+            to bottom,
+            #f2612f 34%,
+            transparent 34%,
+            transparent 37%,
+            #f9dbae 37%,
+            #f9dbae 43%,
+            transparent 43%,
+            transparent 47%,
+            #f9dbae 47%,
+            #f9dbae 53%,
+            transparent 53%,
+            transparent 57%,
+            #f9dbae 57%,
+            #f9dbae 63%,
+            transparent 63%,
+            transparent 67%,
+            #f2612f 67%
+          ),
+          linear-gradient(
+            to bottom,
+            #f2612f 34%,
+            transparent 34%,
+            transparent 37%,
+            #f9dbae 37%,
+            #f9dbae 43%,
+            transparent 43%,
+            transparent 47%,
+            #f9dbae 47%,
+            #f9dbae 53%,
+            transparent 53%,
+            transparent 57%,
+            #f9dbae 57%,
+            #f9dbae 63%,
+            transparent 63%,
+            transparent 67%,
+            #f2612f 67%
+          ),
+          linear-gradient(
+            to bottom,
+            #f2612f 34%,
+            transparent 34%,
+            transparent 37%,
+            #f9dbae 37%,
+            #f9dbae 43%,
+            transparent 43%,
+            transparent 47%,
+            #f9dbae 47%,
+            #f9dbae 53%,
+            transparent 53%,
+            transparent 57%,
+            #f9dbae 57%,
+            #f9dbae 63%,
+            transparent 63%,
+            transparent 67%,
+            #f2612f 67%
+          );
+        background-size: 1.5% 55%, 1.5% 45%, 1.5% 45%, 1.5% 45%, 1.5% 45%,
+          1.5% 45%;
+        background-position: 1.5% 6%, 1.5% 97%, 39% 6%, 76.2% 6%, 52.6% 97%,
+          89.8% 97%;
+      }
+      #xray {
+        background-color: #e0ffff;
+        background-image: linear-gradient(
+            to right,
+            transparent 30%,
+            #d2b48c 30%,
+            #d2b48c 47%,
+            #ddc7a9 47%,
+            #ddc7a9 53%,
+            #d2b48c 53%,
+            #d2b48c 70%,
+            transparent 70%
+          ),
+          linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 0.3) 20%,
+            rgba(0, 0, 0, 0.3) 80%,
+            transparent
+          ),
+          linear-gradient(
+            45deg,
+            #bbb 22%,
+            #888 22%,
+            #888 25%,
+            #bbb 25%,
+            #bbb 75%,
+            #888 75%,
+            #888 78%,
+            #bbb 78%
+          ),
+          radial-gradient(
+            circle,
+            #888 8px,
+            rgba(255, 255, 255, 0.9) 8px,
+            rgba(255, 255, 255, 0.9) 11px,
+            transparent 11px
+          ),
+          linear-gradient(
+            -45deg,
+            #bbb 22%,
+            #888 22%,
+            #888 25%,
+            #bbb 25%,
+            #bbb 75%,
+            #888 75%,
+            #888 78%,
+            #bbb 78%
+          ),
+          linear-gradient(to bottom, #666 50%, #555 50%);
+        background-size: 200px 70px, 290px 11.5%, 200px 7px, 100px 30px,
+          200px 7px, 200px 10%;
+        background-position: 50% 56.2%, 50% 72.2%, 0 65%, 50% 71%, 0 75%, 0 72%;
+        background-repeat: repeat-x, no-repeat, repeat-x, repeat-x, repeat-x,
+          repeat-x;
+        -webkit-animation: moveDiv 2000ms linear infinite;
+        animation: moveDiv 2000ms linear infinite;
+      }
+      #xray:before {
+        content: "";
+        width: 200px;
+        height: 202px;
+        position: absolute;
+        left: 50%;
+        margin-left: -100px;
+        top: 27%;
+        background-image: linear-gradient(
+            165deg,
+            rgba(255, 255, 255, 0.15) 25%,
+            transparent 25%
+          ),
+          linear-gradient(to right, #002525, #002525),
+          linear-gradient(
+            to right,
+            transparent 20%,
+            #1aa093 20%,
+            #1aa093 40%,
+            transparent 40%,
+            transparent 60%,
+            #1aa093 60%,
+            #1aa093 80%,
+            transparent 80%
+          ),
+          radial-gradient(circle, #1ba99b 50%, transparent 50%),
+          radial-gradient(circle, #1ba99b 50%, transparent 50%),
+          radial-gradient(circle, #1ba99b 50%, transparent 50%),
+          linear-gradient(to bottom, #40e0d0 90%, #21ccbb 90%);
+        background-size: 164px 130px, 170px 130px, 100% 10px, 16px 16px,
+          16px 16px, 16px 16px, 100% 100%;
+        background-position: 50% 27%, 50% 22%, 50% 100%, 70% 85%, 80% 85%,
+          90% 85%, 0 0;
+        background-repeat: no-repeat;
+        border-radius: 10px 10px 3px 3px;
+        border-top: 3px solid #21ccbb;
+      }
+      #xray:after {
+        content: "";
+        width: 170px;
+        height: 130px;
+        position: absolute;
+        left: 50%;
+        margin-left: -85px;
+        top: 38%;
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            right top,
+            from(white),
+            to(white)
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            white,
+            white 2px,
+            transparent 2px,
+            transparent 12px
+          ),
+          -webkit-gradient(linear, left top, right top, color-stop(30%, transparent), color-stop(30%, #10635a), color-stop(40%, transparent), color-stop(60%, transparent), color-stop(70%, #10635a), color-stop(70%, transparent)),
+          -webkit-gradient(linear, left top, right top, color-stop(35%, transparent), color-stop(34%, #1aa093), color-stop(44%, #1aa093), color-stop(44%, transparent), color-stop(45%, transparent), color-stop(45%, #21ccbb), color-stop(55%, #21ccbb), color-stop(55%, transparent), color-stop(56%, transparent), color-stop(56%, #168a7f), color-stop(65%, #168a7f), color-stop(65%, transparent)),
+          -webkit-gradient(linear, left top, right top, color-stop(35%, transparent), color-stop(34%, #1eb6a7), color-stop(44%, #1eb6a7), color-stop(44%, transparent), color-stop(45%, transparent), color-stop(45%, #1aa093), color-stop(55%, #1aa093), color-stop(55%, transparent), color-stop(56%, transparent), color-stop(56%, #21ccbb), color-stop(65%, #21ccbb), color-stop(65%, transparent)),
+          -webkit-gradient(linear, left top, right top, color-stop(35%, transparent), color-stop(34%, #168a7f), color-stop(44%, #168a7f), color-stop(44%, transparent), color-stop(45%, transparent), color-stop(45%, #1aa093), color-stop(55%, #1aa093), color-stop(55%, transparent), color-stop(56%, transparent), color-stop(56%, #1eb6a7), color-stop(65%, #1eb6a7), color-stop(65%, transparent)),
+          -webkit-gradient(linear, left top, right top, color-stop(30%, transparent), color-stop(30%, #003e3f), color-stop(70%, #003e3f), color-stop(70%, transparent));
+        background-image: linear-gradient(to right, white, white),
+          repeating-linear-gradient(
+            to bottom,
+            white,
+            white 2px,
+            transparent 2px,
+            transparent 12px
+          ),
+          linear-gradient(
+            to right,
+            transparent 30%,
+            #10635a 30%,
+            transparent 40%,
+            transparent 60%,
+            #10635a 70%,
+            transparent 70%
+          ),
+          linear-gradient(
+            to right,
+            transparent 35%,
+            #1aa093 34%,
+            #1aa093 44%,
+            transparent 44%,
+            transparent 45%,
+            #21ccbb 45%,
+            #21ccbb 55%,
+            transparent 55%,
+            transparent 56%,
+            #168a7f 56%,
+            #168a7f 65%,
+            transparent 65%
+          ),
+          linear-gradient(
+            to right,
+            transparent 35%,
+            #1eb6a7 34%,
+            #1eb6a7 44%,
+            transparent 44%,
+            transparent 45%,
+            #1aa093 45%,
+            #1aa093 55%,
+            transparent 55%,
+            transparent 56%,
+            #21ccbb 56%,
+            #21ccbb 65%,
+            transparent 65%
+          ),
+          linear-gradient(
+            to right,
+            transparent 35%,
+            #168a7f 34%,
+            #168a7f 44%,
+            transparent 44%,
+            transparent 45%,
+            #1aa093 45%,
+            #1aa093 55%,
+            transparent 55%,
+            transparent 56%,
+            #1eb6a7 56%,
+            #1eb6a7 65%,
+            transparent 65%
+          ),
+          linear-gradient(
+            to right,
+            transparent 30%,
+            #003e3f 30%,
+            #003e3f 70%,
+            transparent 70%
+          );
+        background-size: 2px 50px, 8px 50px, 200px 70px, 200px 18px, 200px 18px,
+          200px 18px, 200px 70px;
+        background-position: 15px 40px, 16px 40px, 50% 56%, 50% 40%, 50% 58%,
+          50% 76%, 50% 56%;
+        background-repeat: no-repeat, no-repeat, repeat-x, repeat-x, repeat-x,
+          repeat-x, repeat-x;
+        -webkit-animation: moveAfter 2000ms linear infinite;
+        animation: moveAfter 2000ms linear infinite;
+      }
+      @-webkit-keyframes moveDiv {
+        to {
+          background-position-x: calc(50% + 200px), 50%, 200px, 50%, -200px, 0;
+        }
+      }
+      @keyframes moveDiv {
+        to {
+          background-position-x: calc(50% + 200px), 50%, 200px, 50%, -200px, 0;
+        }
+      }
+      @-webkit-keyframes moveAfter {
+        to {
+          background-position-x: 15px, 16px, calc(50% + 200px),
+            calc(50% + 200px), calc(50% + 200px), calc(50% + 200px),
+            calc(50% + 200px);
+        }
+      }
+      @keyframes moveAfter {
+        to {
+          background-position-x: 15px, 16px, calc(50% + 200px),
+            calc(50% + 200px), calc(50% + 200px), calc(50% + 200px),
+            calc(50% + 200px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>A Single Div:</h1>
+      <p>
+        &nbsp;a CSS drawing project by
+        <a href="https://twitter.com/lynnandtonic">Lynn Fisher</a>
+      </p>
+      <a class="share-link" href="https://ctt.ec/DidfP">Tweet</a>
+    </header>
+    <div class="entry" id="css-one"><div></div></div>
+    <div class="entry" id="css-two"><div></div></div>
+    <div class="entry" id="css-three"><div></div></div>
+    <div class="entry" id="css-four"><div></div></div>
+    <div class="entry wide" id="xray"></div>
+  </body>
+</html>

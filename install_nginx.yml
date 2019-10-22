@@ -1,0 +1,6 @@
+- hosts: webservers
+  become: true
+  gather_facts: False
+
+  roles:
+    - role: nginx
