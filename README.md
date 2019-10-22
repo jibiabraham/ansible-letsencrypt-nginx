@@ -57,6 +57,12 @@ Variables
 - `all_domain_names`: additional domain names that will be added to your certificate. Useful if you want the same certificate for `example.com` and `www.example.com` and use Nginx to redirect from `www.example.com` to `example.com`
 - `deploy_sample_html`: if you need a sample HTML page to be made available immediately after provisioning (for testing whether everything worked out)
 
+To run playbook
+
+```console
+$ ansible-playbook -i hosts provision_ssl_certificates.yml
+```
+
 ## Tutorial
 
 Clone this repository into your local machine. Follow along once you have.
